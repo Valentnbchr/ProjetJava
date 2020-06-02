@@ -9,6 +9,6 @@ package HyperDAO;
  *
  * @author valentinbchr
  */
-public class CoursDAO {
+public class AdministrateurDAO {
     
 }

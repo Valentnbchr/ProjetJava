@@ -9,35 +9,13 @@ package HyperModele;
  *
  * @author valentinbchr
  */
-public class EnseignantM {
-    private int ID;
-    private int IDcours;
-    private String nom;
-    private String prenom;
+public class EnseignantM extends UtilisateurM{
+
+    public EnseignantM(int ID, String nom, String prenom, String email, String mdp, int droit) 
+    {
+        super(ID, nom, prenom, email, mdp, droit);
+    }
+
     
-    public EnseignantM(int ID, int IDcours, String nom, String prenom)
-    {
-        this.ID = ID;
-        this.IDcours = IDcours;
-        this.nom = nom;
-        this.prenom = prenom;
-    }
-    
-    public int getID()
-    {
-        return ID;
-    }
-    public int getIDcours()
-    {
-        return IDcours;
-    }
-    public String getNom()
-    {
-        return nom;
-    }
-    public String getPrenom()
-    {
-        return prenom;
-    }
     
 }

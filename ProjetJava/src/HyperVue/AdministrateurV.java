@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package HyperDAO;
+package HyperVue;
 
 /**
  *
  * @author valentinbchr
  */
-public class GroupeDAO {
+public class AdministrateurV {
     
 }
