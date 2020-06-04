@@ -5,6 +5,9 @@
  */
 package HyperVue;
 
+import HyperDAO.AdministrateurDAO;
+import HyperDAO.ConnexionDAO;
+
 /**
  *
  * @author jorda
@@ -108,6 +111,14 @@ public class Hyperplanning extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String email = jTextField1.getText();
+        String mdp = jTextField2.getText();
+        ConnexionDAO co = new ConnexionDAO();
+        co.connexion(email, mdp);
+        if(co.connexion(email, mdp) == true)
+        {
+            co.verifUtilisateur(email, mdp);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -119,6 +130,10 @@ public class Hyperplanning extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        //AdministrateurDAO a = new AdministrateurDAO();
+        //a.ajoutseance(24, "2020-06-03", "2020-06-03 06:00:00", "2020-06-03 07:00:00", 2, 1, 3, 4, 1, 1);
+
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -141,8 +156,11 @@ public class Hyperplanning extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Hyperplanning().setVisible(true);
+                
             }
+
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
