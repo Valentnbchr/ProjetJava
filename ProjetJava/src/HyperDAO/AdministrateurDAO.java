@@ -27,12 +27,12 @@ public class AdministrateurDAO {
     {
     }
     
-    public void ajoutseance(int semaine, String date, String heure_debut, String heure_fin, int etat, int id_cours, int id_type, int id_enseignant, int id_groupe, int id_salle)
+    public void ajoutseance(int semaine, String date, String creneau, int etat, int id_cours, int id_type, int id_enseignant, int id_groupe, int id_salle)
     {
         Connection con = null;
         Statement st, st2, st3, st4;
         
-        String rqt = "INSERT INTO Seance (Semaine, Date, Heure_debut, Heure_Fin, Etat, ID_Cours, ID_Type)VALUES ('"+semaine+"','"+date+"','"+heure_debut+"','"+heure_fin+"', '"+etat+"', '"+id_cours+"','"+id_type+"') ";
+        String rqt = "INSERT INTO Seance (Semaine, Date, Creneau, Etat, ID_Cours, ID_Type)VALUES ('"+semaine+"','"+date+"','"+creneau+"', '"+etat+"', '"+id_cours+"','"+id_type+"') ";
         
         try
         {
@@ -56,7 +56,7 @@ public class AdministrateurDAO {
                 st.executeUpdate(rqt);
                 
                 st2 = con.createStatement();
-                ResultSet r = st2.executeQuery("SELECT * FROM Seance WHERE Semaine = '"+semaine+"' AND Date = '"+date+"' AND Heure_debut = '"+heure_debut+"' AND Heure_Fin = '"+heure_fin+"' AND Etat = '"+etat+"' AND ID_Cours = '"+id_cours+"' AND ID_Type = '"+id_type+"' ");
+                ResultSet r = st2.executeQuery("SELECT * FROM Seance WHERE Semaine = '"+semaine+"' AND Date = '"+date+"' AND Creneau = '"+creneau+"' AND Etat = '"+etat+"' AND ID_Cours = '"+id_cours+"' AND ID_Type = '"+id_type+"' ");
                 while(r.next())
                 {
                     id_seance = r.getInt("ID");  

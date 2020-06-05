@@ -15,6 +15,9 @@ import HyperDAO.SalleDAO;
  * @author jorda
  */
 public class Hyperplanning extends javax.swing.JFrame {
+    
+    ConnexionDAO co = new ConnexionDAO();
+    
 
     /**
      * Creates new form Hyperplanning
@@ -115,11 +118,13 @@ public class Hyperplanning extends javax.swing.JFrame {
         // TODO add your handling code here:
         String email = jTextField1.getText();
         String mdp = jTextField2.getText();
-        ConnexionDAO co = new ConnexionDAO();
+        
         co.connexion(email, mdp);
         if(co.connexion(email, mdp) == true)
         {
             co.verifUtilisateur(email, mdp);
+            //Lorsque nous cliquons sur notre bouton, on passe a l'autre fenétre
+            Fenetre2 fen = new Fenetre2();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -134,8 +139,8 @@ public class Hyperplanning extends javax.swing.JFrame {
          */
         
         
-        AdministrateurDAO a = new AdministrateurDAO();
-        a.modifcours(23, 2, 2);
+        //AdministrateurDAO a = new AdministrateurDAO();
+        //a.ajoutseance(12, "2020-06-03", "8h30/10h", 2, 2, 2, 4, 1, 1);
         
 
         
