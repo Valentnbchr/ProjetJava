@@ -7,6 +7,8 @@ package HyperVue;
 
 import HyperDAO.AdministrateurDAO;
 import HyperDAO.ConnexionDAO;
+import HyperDAO.GroupeDAO;
+import HyperDAO.SalleDAO;
 
 /**
  *
@@ -130,8 +132,11 @@ public class Hyperplanning extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        //AdministrateurDAO a = new AdministrateurDAO();
-        //a.ajoutseance(24, "2020-06-03", "2020-06-03 06:00:00", "2020-06-03 07:00:00", 2, 1, 3, 4, 1, 1);
+        
+        
+        AdministrateurDAO a = new AdministrateurDAO();
+        a.modifcours(23, 2, 2);
+        
 
         
         try {
