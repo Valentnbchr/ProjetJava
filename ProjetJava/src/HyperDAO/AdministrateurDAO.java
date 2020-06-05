@@ -89,7 +89,7 @@ public class AdministrateurDAO {
     public void modifcours(int id_seance, int id_cours, int id_type)
     {
         Connection con = null;
-        Statement st, st2, st3, st4;
+        Statement st;
         
         String rqt = "UPDATE Seance Set ID_Cours = '"+id_cours+"', ID_Type = '"+id_type+"' WHERE ID = "+id_seance+" ";
         
@@ -107,6 +107,64 @@ public class AdministrateurDAO {
             System.err.println(e);
         }
         
+    }
+    
+    public void affectersalle(int semaine, String date, String creneau, String prof, String salle)
+    {
+        Connection con = null;
+        Statement st, st2, st3, st4, st5, st6;
+        String nprof = "_";
+        int id_salle = 0;
+        int id_seance = 0;
+        
+        String rqt1 = "SELECT * FROM Seance WHERE Semaine = '"+semaine+"' AND Date = '"+date+"' AND Creneau = '"+creneau+"' ";
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            System.out.println("Connected !");
+            
+            st = con.createStatement();
+            ResultSet r = st.executeQuery(rqt1);
+            while(r.next())
+            {
+                String rqt2 = "SELECT * FROM Seance_Enseignant WHERE ID_Seance = '"+r.getInt("ID")+"' ";
+                st2 = con.createStatement();
+                ResultSet r2 = st2.executeQuery(rqt2);
+                while(r2.next())
+                {
+                    String rqt3 = "SELECT * FROM Utilisateur WHERE ID = '"+r2.getString("ID_Enseignant")+"' ";
+                    st3 = con.createStatement();
+                    ResultSet r3 = st3.executeQuery(rqt3);
+                    while(r3.next())
+                    {
+                        nprof = r3.getString("Nom");
+                        if (nprof.equals(prof))
+                        {
+                            id_seance = r.getInt("ID");
+                        }
+                    }
+                }
+   
+            }
+            
+            String rqt4 = "SELECT * FROM Salle WHERE Nom = '"+salle+"'";
+            st4 = con.createStatement();
+            ResultSet r4 = st4.executeQuery(rqt4);
+            while(r4.next())
+            {
+                id_salle = r4.getInt("ID");
+            }
+            
+            String rqt6 = "UPDATE Seance_Salles SET ID_Salle = '"+id_salle+"' WHERE ID_Seance = '"+id_seance+"' ";
+            st6 = con.createStatement();
+            st.executeUpdate(rqt6);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
     }
     
 
