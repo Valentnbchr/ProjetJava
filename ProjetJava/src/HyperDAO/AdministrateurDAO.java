@@ -89,7 +89,7 @@ public class AdministrateurDAO {
     public void modifcours(int id_seance, int id_cours, int id_type)
     {
         Connection con = null;
-        Statement st, st2, st3, st4;
+        Statement st;
         
         String rqt = "UPDATE Seance Set ID_Cours = '"+id_cours+"', ID_Type = '"+id_type+"' WHERE ID = "+id_seance+" ";
         
@@ -107,6 +107,129 @@ public class AdministrateurDAO {
             System.err.println(e);
         }
         
+    }
+    
+    public void affectersalle(int semaine, String date, String creneau, String prof, String salle)
+    {
+        Connection con = null;
+        Statement st;
+        int id_salle = 0;
+        int id_seance = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO seance = new SeanceDAO();
+            id_seance = seance.getIDprof(semaine, date, creneau, prof);
+            
+            SalleDAO s = new SalleDAO();
+            id_salle = s.getID(salle);
+            
+            String rqt = "UPDATE Seance_Salles SET ID_Salle = '"+id_salle+"' WHERE ID_Seance = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }
+    
+    public void etatseance(int semaine, String date, String creneau, String prof, int etat)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO seance = new SeanceDAO();
+            id_seance = seance.getIDprof(semaine, date, creneau, prof);
+            
+            String rqt = "UPDATE Seance SET Etat = '"+etat+"' WHERE ID = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+    }
+    
+    public void affecterenseignant(int semaine, String date, String creneau, String groupe, String prof)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance = 0;
+        int id_enseignant = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDgroupe(semaine, date, creneau, groupe);
+            
+            EnseignantDAO e = new EnseignantDAO();
+            id_enseignant = e.getID(prof);
+            
+            String rqt = "UPDATE Seance_Enseignant SET ID_Enseignant = '"+id_enseignant+"' WHERE ID_Seance = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }
+    
+    public void affectergroupe(int semaine, String date, String creneau, String prof, String groupe)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance = 0;
+        int id_groupe = 0;
+        int id_salle = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDprof(semaine, date, creneau, prof);
+            id_salle = s.getsalleID(id_seance);
+            
+            GroupeDAO g = new GroupeDAO();
+            id_groupe = g.getID(groupe);
+            int x = g.tailleGroupe(id_groupe);
+            
+            SalleDAO salle = new SalleDAO();
+            int y = salle.getCapacité(id_salle);
+            
+            
+            if (x>y)
+            {
+                System.out.println("Cette salle est trop petite pour acceuillir ce groupe !");
+            }
+            else
+            {
+                String rqt = "UPDATE Seance_Groupes SET ID_Groupe = '"+id_groupe+"' WHERE ID_Seance = '"+id_seance+"' ";
+                st = con.createStatement();
+                st.executeUpdate(rqt);
+            }
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
     }
     
 

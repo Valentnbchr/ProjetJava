@@ -1,5 +1,6 @@
 package HyperVue;
 
+import HyperDAO.AdministrateurDAO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,32 +14,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.NumberFormat;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
+import javax.swing.*;
 //Les imports habituels
  
 public class Fenetre2 extends JFrame {
+    AdministrateurDAO a = new AdministrateurDAO();
+    
+    
   private JPanel container = new JPanel();
   //semaine
-  private JFormattedTextField jtf = new JFormattedTextField(NumberFormat.getIntegerInstance());
+  private JTextField jtf = new JTextField();
   //date
-  private JFormattedTextField jtf2 = new JFormattedTextField(DateFormat.getDateInstance());
+  private JTextField jtf2 = new JTextField();
   //creneau
   private JComboBox creneau = new JComboBox();
   //etat
   private JComboBox etat = new JComboBox();
   private JLabel label1 = new JLabel("etat");
   //id cours
-   private JFormattedTextField cours = new JFormattedTextField(NumberFormat.getIntegerInstance());
+   private JTextField cours = new JTextField();
 
 //id type
-   private JFormattedTextField type = new JFormattedTextField(NumberFormat.getIntegerInstance());
+   private JTextField type = new JTextField();
 //id ens
-   private JFormattedTextField ens = new JFormattedTextField(NumberFormat.getIntegerInstance());
+   private JTextField ens = new JTextField();
 //id grp
-   private JFormattedTextField grp = new JFormattedTextField(NumberFormat.getIntegerInstance());
+   private JTextField grp = new JTextField();
 //id salle
-   private JFormattedTextField salle = new JFormattedTextField(NumberFormat.getIntegerInstance());
+   private JTextField salle = new JTextField();
   
   //semaine
   private final JLabel label = new JLabel("semaine");
@@ -153,8 +156,7 @@ public class Fenetre2 extends JFrame {
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
-      System.out.println("TEXT : jtf " + jtf.getText());
-      System.out.println("TEXT : jtf2 " + jtf2.getText());
+      a.ajoutseance(Integer.parseInt(jtf.getText()), jtf2.getText(),creneau.getSelectedItem().toString(), etat.getSelectedIndex()+1 , Integer.parseInt(cours.getText()), Integer.parseInt(type.getText()), Integer.parseInt(ens.getText()), Integer.parseInt(grp.getText()), Integer.parseInt(salle.getText()));
     }
   }
 }

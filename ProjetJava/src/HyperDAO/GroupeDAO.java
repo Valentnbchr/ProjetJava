@@ -51,4 +51,31 @@ public class GroupeDAO {
         return t;
     }
     
+    public int getID(String nom)
+    {
+        Connection con = null;
+        Statement st;
+        int id_groupe = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+                
+            st = con.createStatement();
+            ResultSet r = st.executeQuery("SELECT * FROM Groupe WHERE Nom = '"+nom+"'");
+            while(r.next())
+            {
+                id_groupe = r.getInt("ID");  
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+        return id_groupe;
+    }
+    
 }

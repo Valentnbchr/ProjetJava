@@ -50,4 +50,31 @@ public class SalleDAO {
         
         return cap;
     }
+    
+    public int getID(String nom)
+    {
+        Connection con = null;
+        Statement st;
+        int id_salle = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+                
+            st = con.createStatement();
+            ResultSet r = st.executeQuery("SELECT * FROM Salle WHERE Nom = '"+nom+"'");
+            while(r.next())
+            {
+                id_salle = r.getInt("ID");  
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+        return id_salle;
+    }
 }
