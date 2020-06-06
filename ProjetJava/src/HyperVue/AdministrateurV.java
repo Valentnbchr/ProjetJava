@@ -23,7 +23,7 @@ public class AdministrateurV extends JFrame {
   //classe
   private JTextField classe = new JTextField();
     //prof
-  private JTextField heure1 = new JTextField();
+  private JTextField professeur = new JTextField();
 
   
   //semaine
@@ -36,7 +36,7 @@ public class AdministrateurV extends JFrame {
   //date
    private final JLabel label2 = new JLabel("classe");
    //heure début
-   private JLabel label3 = new JLabel("heure debut");
+   private JLabel label3 = new JLabel("professeur");
 
   public AdministrateurV(){
     this.setTitle("Animation");
@@ -51,7 +51,7 @@ public class AdministrateurV extends JFrame {
     eleve.setPreferredSize(new Dimension(250, 30));
     eleve.setForeground(Color.BLUE);
     classe.setPreferredSize(new Dimension(290, 30));
-    heure1.setPreferredSize(new Dimension(290, 30));
+    professeur.setPreferredSize(new Dimension(290, 30));
 
     //boutton
     b.addActionListener(new BoutonListener());
@@ -71,7 +71,7 @@ public class AdministrateurV extends JFrame {
     top.add(classe); 
     //heure debut
     top.add(label3);
-    top.add(heure1);
+    top.add(professeur);
         //boutton
     top.add(b1);
         //boutton
@@ -90,6 +90,7 @@ public class AdministrateurV extends JFrame {
     public void actionPerformed(ActionEvent e) {
       System.out.println("TEXT : jtf " + eleve.getText());
       System.out.println("TEXT : jtf2 " + classe.getText());
+      System.out.println("TEXT : jtf " + professeur.getText());
     }
   }
   

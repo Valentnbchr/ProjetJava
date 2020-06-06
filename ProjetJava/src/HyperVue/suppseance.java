@@ -19,9 +19,9 @@ import javax.swing.JTextField;
 public class suppseance extends JFrame {
   private JPanel container = new JPanel();
     //eleve
-  private JTextField eleve = new JTextField();
+  private JTextField semaine = new JTextField();
   //classe
-  private JTextField classe = new JTextField();
+  private JTextField date = new JTextField();
   
   //prof
   private JTextField professeur = new JTextField();
@@ -50,11 +50,12 @@ public class suppseance extends JFrame {
     container.setLayout(new BorderLayout());
     JPanel top = new JPanel();        
     Font police = new Font("Arial", Font.BOLD, 14);
-    eleve.setFont(police);
-    eleve.setPreferredSize(new Dimension(250, 30));
-    eleve.setForeground(Color.BLUE);
-    classe.setPreferredSize(new Dimension(290, 30));
-        creneau.setPreferredSize(new Dimension(270, 20));
+    semaine.setFont(police);
+    semaine.setPreferredSize(new Dimension(250, 30));
+    semaine.setForeground(Color.BLUE);
+    date.setPreferredSize(new Dimension(290, 30));
+    
+    creneau.setPreferredSize(new Dimension(270, 20));
     //etat
     creneau.addItem("8h30/10h00");
     creneau.addItem("10h00/11h30");
@@ -70,10 +71,10 @@ public class suppseance extends JFrame {
     
     //semaine
     top.add(label);
-    top.add(eleve);
+    top.add(semaine);
     //date
     top.add(label2);
-    top.add(classe); 
+    top.add(date); 
     ///creneau
     top.add(label1);
     top.add(creneau);
@@ -91,8 +92,8 @@ public class suppseance extends JFrame {
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
-      System.out.println("TEXT : jtf " + eleve.getText());
-      System.out.println("TEXT : jtf2 " + classe.getText());
+      System.out.println("TEXT : jtf " + semaine.getText());
+      System.out.println("TEXT : jtf2 " + date.getText());
     }
   }
   
