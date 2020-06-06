@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
 //Les imports habituels
  
 public class Fenetre2 extends JFrame {
@@ -22,7 +23,7 @@ public class Fenetre2 extends JFrame {
   //semaine
   private JFormattedTextField jtf = new JFormattedTextField(NumberFormat.getIntegerInstance());
   //date
-  private JFormattedTextField jtf2 = new JFormattedTextField(DateFormat.getDateInstance());
+  private JTextField jtf2 = new JTextField();
   //creneau
   private JComboBox creneau = new JComboBox();
   //etat
