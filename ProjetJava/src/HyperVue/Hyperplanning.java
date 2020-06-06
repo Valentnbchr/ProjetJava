@@ -9,6 +9,9 @@ import HyperDAO.AdministrateurDAO;
 import HyperDAO.ConnexionDAO;
 import HyperDAO.GroupeDAO;
 import HyperDAO.SalleDAO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -61,11 +64,11 @@ public class Hyperplanning extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("identifiant");
+        jLabel1.setText("Identifiant");
 
-        jLabel2.setText("mot de passe");
+        jLabel2.setText("Mot de Passe");
 
-        jButton1.setText("se connecter");
+        jButton1.setText("Se Connecter");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -81,15 +84,15 @@ public class Hyperplanning extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(jTextField2))
                 .addGap(117, 117, 117))
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
+                .addGap(173, 173, 173)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,9 +105,9 @@ public class Hyperplanning extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(25, 25, 25))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -122,9 +125,30 @@ public class Hyperplanning extends javax.swing.JFrame {
         co.connexion(email, mdp);
         if(co.connexion(email, mdp) == true)
         {
-            co.verifUtilisateur(email, mdp);
-            //Lorsque nous cliquons sur notre bouton, on passe a l'autre fenétre
-            Fenetre2 fen = new Fenetre2();
+            int droit = co.verifUtilisateur(email, mdp);
+            
+            if(droit == 1 || droit == 2)
+            {
+                AdministrateurV a = new AdministrateurV();
+            }
+            if(droit == 3)
+            {
+                try {
+                //Lorsque nous cliquons sur notre bouton, on passe a l'autre fenétre
+                EDTV e = new EDTV();
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(Hyperplanning.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(droit == 4)
+            {
+                try {
+                //Lorsque nous cliquons sur notre bouton, on passe a l'autre fenétre
+                EDTV e = new EDTV();
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(Hyperplanning.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -139,8 +163,8 @@ public class Hyperplanning extends javax.swing.JFrame {
          */
         
         
-        AdministrateurDAO a = new AdministrateurDAO();
-        a.affectergroupe(12, "2020-12-03", "10h/11h30", "Goanvec", "TD4");
+        //AdministrateurDAO a = new AdministrateurDAO();
+        //a.ajoutseance(12, "2020-06-03","8h30/10h" , 1, 1, 1, 4, 1, 1);
         
 
         

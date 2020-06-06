@@ -17,52 +17,69 @@ import java.text.NumberFormat;
 import javax.swing.*;
 //Les imports habituels
  
-public class Fenetre2 extends JFrame {
-    AdministrateurDAO a = new AdministrateurDAO();
+public class AjoutSeanceV extends JFrame {
+   AdministrateurDAO a = new AdministrateurDAO();
     
     
-  private JPanel container = new JPanel();
-  //semaine
-  private JTextField jtf = new JTextField();
-  //date
-  private JTextField jtf2 = new JTextField();
-  //creneau
-  private JComboBox creneau = new JComboBox();
-  //etat
-  private JComboBox etat = new JComboBox();
-  private JLabel label1 = new JLabel("etat");
-  //id cours
-   private JTextField cours = new JTextField();
+    private JPanel container = new JPanel();
 
-//id type
-   private JTextField type = new JTextField();
-//id ens
-   private JTextField ens = new JTextField();
-//id grp
-   private JTextField grp = new JTextField();
-//id salle
-   private JTextField salle = new JTextField();
+    //semaine
+    private JTextField jtf = new JTextField();
+
+    //date
+    private JTextField jtf2 = new JTextField();
+
+    //creneau
+    private JComboBox creneau = new JComboBox();
+
+    //etat
+    private JComboBox etat = new JComboBox();
+    private JLabel label1 = new JLabel("etat");
   
-  //semaine
-  private final JLabel label = new JLabel("semaine");
-  //boutton
-  private JButton b = new JButton ("OK");
-  //date
-   private final JLabel label2 = new JLabel("date");
-   //heure début
-   private JLabel label3 = new JLabel("Creneau");
-   //cours
-   private JLabel label5 = new JLabel("id cours");
-      //type
-   private JLabel label6 = new JLabel("id type");
-      //enseignant
-   private JLabel label7 = new JLabel("id ens");
-      //groupe
-   private JLabel label8 = new JLabel("id groupe");
-      //salle
-   private JLabel label9 = new JLabel("id salle");
+    //id cours
+    private JTextField cours = new JTextField();
 
-  public Fenetre2(){
+     //id type
+    private JTextField type = new JTextField();
+
+     //id ens
+    private JTextField ens = new JTextField();
+
+     //id grp
+    private JTextField grp = new JTextField();
+
+     //id salle
+    private JTextField salle = new JTextField();
+  
+    //semaine
+    private final JLabel label = new JLabel("semaine");
+    
+    //boutton
+    private JButton b = new JButton ("OK");
+    
+    //date
+    private final JLabel label2 = new JLabel("date");
+    
+    //heure début
+    private JLabel label3 = new JLabel("Creneau");
+    
+    //cours
+    private JLabel label5 = new JLabel("id cours");
+    
+    //type
+    private JLabel label6 = new JLabel("id type");
+    
+    //enseignant
+    private JLabel label7 = new JLabel("id ens");
+    
+    //groupe
+    private JLabel label8 = new JLabel("id groupe");
+    
+    //salle
+    private JLabel label9 = new JLabel("id salle");
+
+  public AjoutSeanceV()
+  {
     this.setTitle("Animation");
     this.setSize(350, 800);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

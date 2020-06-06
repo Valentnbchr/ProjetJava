@@ -86,10 +86,22 @@ public class AdministrateurDAO {
         
     }
     
-    public void modifcours(int id_seance, int id_cours, int id_type)
+    public void modifcours(int semaine, String date, String creneau, String prof, String cours, String type)
     {
         Connection con = null;
         Statement st;
+        int id_seance = 0;
+        int id_cours = 0;
+        int id_type = 0;
+        
+        SeanceDAO seance = new SeanceDAO();
+        id_seance = seance.getIDprof(semaine, date, creneau, prof);
+        
+        CoursDAO c = new CoursDAO();
+        id_cours = c.getID(cours);
+        
+        TypeDAO t = new TypeDAO();
+        id_type = t.getID(type);
         
         String rqt = "UPDATE Seance Set ID_Cours = '"+id_cours+"', ID_Type = '"+id_type+"' WHERE ID = "+id_seance+" ";
         
@@ -137,11 +149,25 @@ public class AdministrateurDAO {
         }
     }
     
-    public void etatseance(int semaine, String date, String creneau, String prof, int etat)
+    public void etatseance(int semaine, String date, String creneau, String prof, String E)
     {
         Connection con = null;
         Statement st;
         int id_seance = 0;
+        int etat = 0;
+        
+        if(E == "En cours de validation")
+        {
+            etat = 1;
+        }
+        if(E == "Validé")
+        {
+            etat = 2;
+        }
+        if(E == "Annulé")
+        {
+            etat = 3;
+        }
         
         try
         {
@@ -213,7 +239,6 @@ public class AdministrateurDAO {
             SalleDAO salle = new SalleDAO();
             int y = salle.getCapacité(id_salle);
             
-            
             if (x>y)
             {
                 System.out.println("Cette salle est trop petite pour acceuillir ce groupe !");
@@ -231,6 +256,81 @@ public class AdministrateurDAO {
             System.err.println(e);
         }
     }
+    
+    public void deplacercours(int semaine, String date, String creneau, String prof, String nvcreneau)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDprof(semaine, date, creneau, prof);
+            
+            String rqt = "UPDATE Seance SET Creneau = '"+nvcreneau+"' WHERE ID = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }
+    
+    /*public void enleverEns(int semaine, String date, String creneau, String prof)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDprof(semaine, date, creneau, prof);
+            
+            String rqt = "UPDATE Seance_Enseignant SET ID_Enseignant = 0 WHERE ID_Seance = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }
+    
+    public void enleverGroupe(int semaine, String date, String creneau, String groupe)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDgroupe(semaine, date, creneau, groupe);
+            
+            String rqt = "UPDATE Seance_Groupes SET ID_Groupe = 0 WHERE ID_Seance = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }*/
     
 
     
