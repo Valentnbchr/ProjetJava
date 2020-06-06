@@ -140,7 +140,7 @@ public class Hyperplanning extends javax.swing.JFrame {
         
         
         AdministrateurDAO a = new AdministrateurDAO();
-        a.affectersalle(12, "2020-12-03", "10h/11h30", "Lefort", "G004");
+        a.affectergroupe(12, "2020-12-03", "10h/11h30", "Goanvec", "TD4");
         
 
         

@@ -36,7 +36,7 @@ public class EnseignantDAO {
             
                 
             st = con.createStatement();
-            ResultSet r = st.executeQuery("SELECT * FROM Enseignant WHERE Nom = '"+nom+"'");
+            ResultSet r = st.executeQuery("SELECT * FROM Utilisateur WHERE Nom = '"+nom+"'");
             while(r.next())
             {
                 id_ens = r.getInt("ID");  

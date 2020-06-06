@@ -112,53 +112,118 @@ public class AdministrateurDAO {
     public void affectersalle(int semaine, String date, String creneau, String prof, String salle)
     {
         Connection con = null;
-        Statement st, st2, st3, st4, st5, st6;
-        String nprof = "_";
+        Statement st;
         int id_salle = 0;
         int id_seance = 0;
-        
-        String rqt1 = "SELECT * FROM Seance WHERE Semaine = '"+semaine+"' AND Date = '"+date+"' AND Creneau = '"+creneau+"' ";
         
         try
         {
             con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
-            System.out.println("Connected !");
             
+            SeanceDAO seance = new SeanceDAO();
+            id_seance = seance.getIDprof(semaine, date, creneau, prof);
+            
+            SalleDAO s = new SalleDAO();
+            id_salle = s.getID(salle);
+            
+            String rqt = "UPDATE Seance_Salles SET ID_Salle = '"+id_salle+"' WHERE ID_Seance = '"+id_seance+"' ";
             st = con.createStatement();
-            ResultSet r = st.executeQuery(rqt1);
-            while(r.next())
-            {
-                String rqt2 = "SELECT * FROM Seance_Enseignant WHERE ID_Seance = '"+r.getInt("ID")+"' ";
-                st2 = con.createStatement();
-                ResultSet r2 = st2.executeQuery(rqt2);
-                while(r2.next())
-                {
-                    String rqt3 = "SELECT * FROM Utilisateur WHERE ID = '"+r2.getString("ID_Enseignant")+"' ";
-                    st3 = con.createStatement();
-                    ResultSet r3 = st3.executeQuery(rqt3);
-                    while(r3.next())
-                    {
-                        nprof = r3.getString("Nom");
-                        if (nprof.equals(prof))
-                        {
-                            id_seance = r.getInt("ID");
-                        }
-                    }
-                }
-   
-            }
+            st.executeUpdate(rqt);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }
+    
+    public void etatseance(int semaine, String date, String creneau, String prof, int etat)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
             
-            String rqt4 = "SELECT * FROM Salle WHERE Nom = '"+salle+"'";
-            st4 = con.createStatement();
-            ResultSet r4 = st4.executeQuery(rqt4);
-            while(r4.next())
-            {
-                id_salle = r4.getInt("ID");
-            }
+            SeanceDAO seance = new SeanceDAO();
+            id_seance = seance.getIDprof(semaine, date, creneau, prof);
             
-            String rqt6 = "UPDATE Seance_Salles SET ID_Salle = '"+id_salle+"' WHERE ID_Seance = '"+id_seance+"' ";
-            st6 = con.createStatement();
-            st.executeUpdate(rqt6);
+            String rqt = "UPDATE Seance SET Etat = '"+etat+"' WHERE ID = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+    }
+    
+    public void affecterenseignant(int semaine, String date, String creneau, String groupe, String prof)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance = 0;
+        int id_enseignant = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDgroupe(semaine, date, creneau, groupe);
+            
+            EnseignantDAO e = new EnseignantDAO();
+            id_enseignant = e.getID(prof);
+            
+            String rqt = "UPDATE Seance_Enseignant SET ID_Enseignant = '"+id_enseignant+"' WHERE ID_Seance = '"+id_seance+"' ";
+            st = con.createStatement();
+            st.executeUpdate(rqt);
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+    }
+    
+    public void affectergroupe(int semaine, String date, String creneau, String prof, String groupe)
+    {
+        Connection con = null;
+        Statement st;
+        int id_seance = 0;
+        int id_groupe = 0;
+        int id_salle = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+            SeanceDAO s = new SeanceDAO();
+            id_seance = s.getIDprof(semaine, date, creneau, prof);
+            id_salle = s.getsalleID(id_seance);
+            
+            GroupeDAO g = new GroupeDAO();
+            id_groupe = g.getID(groupe);
+            int x = g.tailleGroupe(id_groupe);
+            
+            SalleDAO salle = new SalleDAO();
+            int y = salle.getCapacité(id_salle);
+            
+            
+            if (x>y)
+            {
+                System.out.println("Cette salle est trop petite pour acceuillir ce groupe !");
+            }
+            else
+            {
+                String rqt = "UPDATE Seance_Groupes SET ID_Groupe = '"+id_groupe+"' WHERE ID_Seance = '"+id_seance+"' ";
+                st = con.createStatement();
+                st.executeUpdate(rqt);
+            }
 
         }
         catch(SQLException e)
