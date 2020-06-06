@@ -1,3 +1,5 @@
+package HyperVue;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,32 +13,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import javax.swing.UnsupportedLookAndFeelException;
 //Les imports habituels
  
 public class AdministrateurV extends JFrame {
   private JPanel container = new JPanel();
     //eleve
-  private JTextField eleve = new JTextField();
+  private JTextField Eleve = new JTextField();
   //classe
-  private JTextField classe = new JTextField();
-    //prof
-  private JTextField heure1 = new JTextField();
+  private JTextField Classe = new JTextField();
+
 
   
   //semaine
-  private final JLabel label = new JLabel("eleve");
+  private final JLabel label = new JLabel("Nom Elève :");
   //boutton
   private JButton b = new JButton ("Voir EDT");
   private JButton b1 = new JButton ("Ajouter séance");
   private JButton b2 = new JButton ("Modifier séance");
   private JButton b3 = new JButton ("Supprimer séance");
   //date
-   private final JLabel label2 = new JLabel("classe");
+   private final JLabel label2 = new JLabel("Classe :");
    //heure début
-   private JLabel label3 = new JLabel("heure debut");
 
   public AdministrateurV(){
     this.setTitle("Animation");
@@ -47,17 +50,16 @@ public class AdministrateurV extends JFrame {
     container.setLayout(new BorderLayout());
     JPanel top = new JPanel();        
     Font police = new Font("Arial", Font.BOLD, 14);
-    eleve.setFont(police);
-    eleve.setPreferredSize(new Dimension(250, 30));
-    eleve.setForeground(Color.BLUE);
-    classe.setPreferredSize(new Dimension(290, 30));
-    heure1.setPreferredSize(new Dimension(290, 30));
+    Eleve.setFont(police);
+    Eleve.setPreferredSize(new Dimension(250, 30));
+    Eleve.setForeground(Color.BLUE);
+    Classe.setPreferredSize(new Dimension(290, 30));
 
     //boutton
     b.addActionListener(new BoutonListener());
-    b1.addActionListener(new BoutonListener());
-    b2.addActionListener(new BoutonListener());
-    b3.addActionListener(new BoutonListener());
+    b1.addActionListener(new BoutonListener1());
+    b2.addActionListener(new BoutonListener2());
+    b3.addActionListener(new BoutonListener3());
     
     
     
@@ -65,13 +67,10 @@ public class AdministrateurV extends JFrame {
     top.add(b);
     //semaine
     top.add(label);
-    top.add(eleve);
+    top.add(Eleve);
     //date
     top.add(label2);
-    top.add(classe); 
-    //heure debut
-    top.add(label3);
-    top.add(heure1);
+    top.add(Classe); 
         //boutton
     top.add(b1);
         //boutton
@@ -88,8 +87,26 @@ public class AdministrateurV extends JFrame {
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
-      System.out.println("TEXT : jtf " + eleve.getText());
-      System.out.println("TEXT : jtf2 " + classe.getText());
+        try {
+            EDTV edt = new EDTV();
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(AdministrateurV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+  }
+  class BoutonListener1 implements ActionListener{
+    public void actionPerformed(ActionEvent e) {
+      AjoutSeanceV as = new AjoutSeanceV();
+    }
+  }
+  class BoutonListener2 implements ActionListener{
+    public void actionPerformed(ActionEvent e) {
+      modifseance m = new modifseance();
+    }
+  }
+  class BoutonListener3 implements ActionListener{
+    public void actionPerformed(ActionEvent e) {
+      suppseance ss = new suppseance();
     }
   }
   

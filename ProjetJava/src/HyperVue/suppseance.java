@@ -1,3 +1,6 @@
+package HyperVue;
+
+import HyperDAO.AdministrateurDAO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,10 +21,10 @@ import javax.swing.JTextField;
  
 public class suppseance extends JFrame {
   private JPanel container = new JPanel();
-    //eleve
-  private JTextField eleve = new JTextField();
+  //eleve
+  private JTextField semaine = new JTextField();
   //classe
-  private JTextField classe = new JTextField();
+  private JTextField date = new JTextField();
   
   //prof
   private JTextField professeur = new JTextField();
@@ -29,15 +32,15 @@ public class suppseance extends JFrame {
 
   
   //semaine
-  private final JLabel label = new JLabel("date");
+  private final JLabel label = new JLabel("Semaine :");
   //creneau
-  private final JLabel label1 = new JLabel("creneau");
+  private final JLabel label1 = new JLabel("Date :");
   //boutton
   private JButton annuler = new JButton ("Annuler");
   //date
-   private final JLabel label2 = new JLabel("semaine");
+   private final JLabel label2 = new JLabel("Creneau :");
    //heure début
-   private JLabel label3 = new JLabel("professeur");
+   private JLabel label3 = new JLabel("Nom Professeur :");
    //creneau
    private JComboBox creneau = new JComboBox();
 
@@ -50,18 +53,19 @@ public class suppseance extends JFrame {
     container.setLayout(new BorderLayout());
     JPanel top = new JPanel();        
     Font police = new Font("Arial", Font.BOLD, 14);
-    eleve.setFont(police);
-    eleve.setPreferredSize(new Dimension(250, 30));
-    eleve.setForeground(Color.BLUE);
-    classe.setPreferredSize(new Dimension(290, 30));
+    semaine.setFont(police);
+    semaine.setPreferredSize(new Dimension(250, 30));
+    semaine.setForeground(Color.BLUE);
+    date.setPreferredSize(new Dimension(290, 30));
         creneau.setPreferredSize(new Dimension(270, 20));
     //etat
-    creneau.addItem("8h30/10h00");
-    creneau.addItem("10h00/11h30");
-    creneau.addItem("11h30/13h00"); 
-    creneau.addItem("14h30/16h00");
-    creneau.addItem("16h00/17h30"); 
-    creneau.addItem("17h30/19h00"); 
+    creneau.addItem("8h30/10h");
+    creneau.addItem("10h/11h30");
+    creneau.addItem("11h30/13h"); 
+    creneau.addItem("13h/14h30");
+    creneau.addItem("14h30/16h"); 
+    creneau.addItem("16h/17h30"); 
+    creneau.addItem("17h30/19h");
     
     professeur.setPreferredSize(new Dimension(290, 30));
 
@@ -70,12 +74,12 @@ public class suppseance extends JFrame {
     
     //semaine
     top.add(label);
-    top.add(eleve);
+    top.add(semaine);
     //date
-    top.add(label2);
-    top.add(classe); 
-    ///creneau
     top.add(label1);
+    top.add(date); 
+    ///creneau
+    top.add(label2);
     top.add(creneau);
     //professeur
     top.add(label3);
@@ -91,8 +95,10 @@ public class suppseance extends JFrame {
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
-      System.out.println("TEXT : jtf " + eleve.getText());
-      System.out.println("TEXT : jtf2 " + classe.getText());
+        
+      AdministrateurDAO a = new AdministrateurDAO();
+      a.etatseance(Integer.parseInt(semaine.getText()), date.getText(), creneau.getSelectedItem().toString(), professeur.getText(), "Annulé");
+      
     }
   }
   

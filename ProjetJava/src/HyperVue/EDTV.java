@@ -1,3 +1,6 @@
+package HyperVue;
+
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -13,35 +16,45 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 
-public class EnseignantV extends JFrame {
+public class EDTV extends JFrame {
+    
+    
     
     private JComboBox combo = new JComboBox();
     
     /* Construction de l'interface graphique */
-    public EnseignantV() {
-        super( "Emploi du temps " );
+    public EDTV() throws UnsupportedLookAndFeelException 
+    {
+        this.setTitle("Emploi du Temps");
         this.setSize(600,400);
         this.setLocationRelativeTo( null );
         this.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
         // Construction et injection de la barre de menu
         this.setJMenuBar( this.createMenuBar() );
+        
+        UIManager.setLookAndFeel( new NimbusLookAndFeel() );
+        JTable maTable = new JTable();
+        this.JTable();
+        this.setVisible(true);
     }
     
     /* Methode de construction de la barre de menu */
-    private JMenuBar createMenuBar() {
+    private JMenuBar createMenuBar() 
+    {
 
         JPanel top = new JPanel();   
-        // La barre de menu à proprement parler
+      
         JMenuBar menuBar = new JMenuBar();
 
-        // Définition du menu déroulant "File" et de son contenu
+      
         JMenu menuCours = new JMenu( "Cours" );
-        menuCours.setMnemonic( 'C' );
+        
 
         JMenuItem menuNewCours = new JMenuItem( "Emploi du temps" );
        
@@ -56,9 +69,9 @@ public class EnseignantV extends JFrame {
 
         menuBar.add(menuCours);
         
-        // Définition du menu déroulant "Etudiant" et de son contenu
+      
         JMenu menuEtudiant = new JMenu( "Etudiant" );
-        menuEtudiant.setMnemonic( 'E' );
+        
         
         JMenuItem menuEDT = new JMenuItem( "Emploi du temps" );
        menuEtudiant.add(menuEDT);
@@ -80,9 +93,9 @@ public class EnseignantV extends JFrame {
         
         menuBar.add(menuEtudiant);
        
-        //definition du menu promotion
+     
         JMenu menuPromotions = new JMenu ("Promotions");
-        menuPromotions.setMnemonic( 'P' );
+     
         
         JMenuItem menu2020 = new JMenuItem( "2020" );
        menuPromotions.add(menu2020);
@@ -107,7 +120,7 @@ public class EnseignantV extends JFrame {
         //defintion menu salles
         
         JMenu menuSalles = new JMenu ("Salles");
-        menuSalles.setMnemonic( 'S' );
+     
         
                 JMenuItem s1 = new JMenuItem( "E1-SC217" );
        menuSalles.add(s1);
@@ -142,51 +155,43 @@ public class EnseignantV extends JFrame {
        menuBar.add (menuSalles);
 
 
-// Définition du menu déroulant "Help" et de son contenu
         JMenu mnuHelp = new JMenu( "Help" );
-        mnuHelp.setMnemonic( 'H' );
+      
         menuBar.add( mnuHelp );
         return menuBar;
         
     }
     
-     private void JTable() {
+    
+
+    
+     private void JTable()
+     {
         
  
         Object[][] donnees = {
-                {"8h30/10h00", ""},
-                {"10h00/11h30", ""},
-                {"11h30/13h00", ""},
-                {"14h30/16h", ""},
-                {"16h/17h30", ""},
-                {"17h30/19h", ""},
-                {"19h", ""},
+                {"8h30/10h00", "", "", "", "", "", ""},
+                {"10h00/11h30", "", "", "", "", "", ""},
+                {"11h30/13h00", "", "", "", "", "", ""},
+                {"13h/14h30", "", "", "", "", "", ""},
+                {"14h30h/16h", "", "", "", "", "", ""},
+                {"16h/17h30", "", "", "", "", "", ""},
+                {"17h30/19h", "", "", "", "", "", ""},
         };
  
-        String[] entetes = {"Heure", "Matières"};
+        String[] entetes = {"Heure", "Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
  
         JTable tableau = new JTable(donnees, entetes);
  
         getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
         getContentPane().add(tableau, BorderLayout.CENTER);
- 
+
       // return JTable();
     }
-    
-
-    
+     
 
     public void mnuNewListener( ActionEvent event ) {
         JOptionPane.showMessageDialog( this, "Button clicked !" );
     }
    
-    public static void main(String[] args) throws Exception {
-        UIManager.setLookAndFeel( new NimbusLookAndFeel() );
-        projettest frame = new projettest();
-        JTable maTable = new JTable();
-        frame.JTable();
-        frame.setVisible(true);
-          
-        
-    }
 }
