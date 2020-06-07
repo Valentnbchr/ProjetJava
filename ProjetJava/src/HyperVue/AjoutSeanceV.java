@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -24,10 +26,10 @@ public class AjoutSeanceV extends JFrame {
     private JPanel container = new JPanel();
 
     //semaine
-    private JTextField jtf = new JTextField();
+    private JTextField jtf = new JTextField(15);
 
     //date
-    private JTextField jtf2 = new JTextField();
+    private JTextField jtf2 = new JTextField(15);
 
     //creneau
     private JComboBox creneau = new JComboBox();
@@ -37,19 +39,19 @@ public class AjoutSeanceV extends JFrame {
     private JLabel label1 = new JLabel("etat");
   
     //id cours
-    private JTextField cours = new JTextField();
+    private JTextField cours = new JTextField(15);
 
      //id type
-    private JTextField type = new JTextField();
+    private JTextField type = new JTextField(15);
 
      //id ens
-    private JTextField ens = new JTextField();
+    private JTextField ens = new JTextField(15);
 
      //id grp
-    private JTextField grp = new JTextField();
+    private JTextField grp = new JTextField(15);
 
      //id salle
-    private JTextField salle = new JTextField();
+    private JTextField salle = new JTextField(15);
   
     //semaine
     private final JLabel label = new JLabel("semaine");
@@ -58,40 +60,42 @@ public class AjoutSeanceV extends JFrame {
     private JButton b = new JButton ("OK");
     
     //date
-    private final JLabel label2 = new JLabel("date");
+    private final JLabel label2 = new JLabel("Jour de la semaine");
     
     //heure début
     private JLabel label3 = new JLabel("Creneau");
     
     //cours
-    private JLabel label5 = new JLabel("id cours");
+    private JLabel label5 = new JLabel("choix cours");
     
     //type
-    private JLabel label6 = new JLabel("id type");
+    private JLabel label6 = new JLabel("choix type");
     
     //enseignant
-    private JLabel label7 = new JLabel("id ens");
+    private JLabel label7 = new JLabel("choix ens");
     
     //groupe
-    private JLabel label8 = new JLabel("id groupe");
+    private JLabel label8 = new JLabel("choix groupe");
     
     //salle
-    private JLabel label9 = new JLabel("id salle");
+    private JLabel label9 = new JLabel("choix salle");
 
   public AjoutSeanceV()
   {
     this.setTitle("Animation");
-    this.setSize(350, 800);
+    this.setSize(900, 600);
+    this.setLocationRelativeTo(null);   
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
     container.setBackground(Color.white);
     container.setLayout(new BorderLayout());
-    JPanel top = new JPanel();        
-    Font police = new Font("Arial", Font.BOLD, 14);
-    jtf.setFont(police);
-    jtf.setPreferredSize(new Dimension(290, 30));
-    jtf.setForeground(Color.BLUE);
-    jtf2.setPreferredSize(new Dimension(290, 30));
+    
+    JPanel top = new JPanel();  
+        //ajout d'un gridbagLayout
+    top.setLayout(new GridBagLayout());
+    
+    //ajout d'un gridBagConstraints
+    GridBagConstraints gc = new GridBagConstraints();
     
     //creneau
     creneau.setPreferredSize(new Dimension(290, 30));
@@ -109,66 +113,117 @@ public class AjoutSeanceV extends JFrame {
     etat.addItem("2");
     etat.addItem("3"); 
     
-    //cours
-    cours.setPreferredSize(new Dimension(290, 30));
-    
-    //type
-    type.setPreferredSize(new Dimension(290, 30));
-    
-    //enseignant
-    ens.setPreferredSize(new Dimension(290, 30));
-    
-    //groupe
-    grp.setPreferredSize(new Dimension(250, 30));
-    
-    //salle
-    salle.setPreferredSize(new Dimension(190, 30));
-    
     //boutton
     b.addActionListener(new BoutonListener());
     
+    gc.weightx=0.5;
+    gc.weighty=0.5;
+    
+    gc.anchor=GridBagConstraints.LINE_END;
     //semaine
-    top.add(label);
-    top.add(jtf);
+    gc.gridx = 1;
+    gc.gridy= 0;
+    top.add(label,gc);
     
     //date
-    top.add(label2);
-    top.add(jtf2); 
+    gc.gridx = 1;
+    gc.gridy= 1;
+    top.add(label2,gc);
     
     //heure debut
-    top.add(label3);
-    top.add(creneau);
+    gc.gridx = 1;
+    gc.gridy= 2;
+    top.add(label3,gc);
     
     ///etat
-    top.add(label1);
-    top.add(etat);
+    gc.gridx = 1;
+    gc.gridy= 3;
+    top.add(label1,gc);
     //id cours
-    top.add(label5);
-    top.add(cours);
+    gc.gridx = 1;
+    gc.gridy= 4;
+    top.add(label5,gc);
     
     //id type
-    top.add(label6);
-    top.add(type);
+    gc.gridx = 1;
+    gc.gridy= 5;
+    top.add(label6,gc);
     
     //id enseignant
-    top.add(label7);
-    top.add(ens);
+    gc.gridx = 1;
+    gc.gridy= 6;
+    top.add(label7,gc);
     
     //id groupe
-    top.add(label8);
-    top.add(grp);
+    gc.gridx = 1;
+    gc.gridy= 7;
+    top.add(label8,gc);
     
     //id salle
-    top.add(label9);
-    top.add(salle);
+    gc.gridx = 1;
+    gc.gridy= 8;
+    top.add(label9,gc);
+    
+    gc.anchor=GridBagConstraints.LINE_START;
+    //semaine
+    gc.gridx = 2;
+    gc.gridy= 0;
+    top.add(jtf,gc);
+    
+    //date
+    gc.gridx = 2;
+    gc.gridy= 1;
+    top.add(jtf2,gc);
+    
+    //heure debut
+    gc.gridx = 2;
+    gc.gridy= 2;
+    top.add(creneau,gc);
+    
+    ///etat
+    gc.gridx = 2;
+    gc.gridy= 3;
+    top.add(etat,gc);
+    //id cours
+    gc.gridx = 2;
+    gc.gridy= 4;
+    top.add(cours,gc);
+    
+    //id type
+    gc.gridx = 2;
+    gc.gridy= 5;
+    top.add(type,gc);
+    
+    //id enseignant
+    gc.gridx = 2;
+    gc.gridy= 6;
+    top.add(ens,gc);
+    
+    //id groupe
+    gc.gridx = 2;
+    gc.gridy= 7;
+    top.add(grp,gc);
+    
+    //id salle
+    gc.gridx = 2;
+    gc.gridy= 8;
+    top.add(salle,gc);
     
     //boutton
-    top.add(b);
+    gc.weighty=1;
+    
+    gc.anchor=GridBagConstraints.FIRST_LINE_START;
+    gc.gridx = 2;
+    gc.gridy=9;
+    top.add(b,gc);
     
     container.add(top, BorderLayout.NORTH);
     this.setContentPane(container);
+     //Définition de sa couleur de fond
+    top.setBackground(Color.ORANGE);        
+    //On prévient notre JFrame que notre JPanel sera son content pane
     this.setContentPane(top);
-    this.setVisible(true);            
+    this.setVisible(true);                 
   }       
 
   class BoutonListener implements ActionListener{
