@@ -1,5 +1,6 @@
 package HyperVue;
 
+import HyperDAO.EtudiantDAO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -87,11 +88,14 @@ public class AdministrateurV extends JFrame {
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
-        try {
-            EDTV edt = new EDTV();
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(AdministrateurV.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String nom = Eleve.getText();
+        EtudiantDAO etu = new EtudiantDAO();
+        String email = etu.getemail(nom);
+        String mdp = etu.getMDP(nom);
+
+        EDTV edt = new EDTV(email, mdp);
+
+
     }
   }
   class BoutonListener1 implements ActionListener{
