@@ -77,4 +77,31 @@ public class SalleDAO {
         
         return id_salle;
     }
+    
+    public String getNom(int id)
+    {
+        Connection con = null;
+        Statement st;
+        String nom = "";
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+                
+            st = con.createStatement();
+            ResultSet r = st.executeQuery("SELECT * FROM Salle WHERE ID = '"+id+"'");
+            while(r.next())
+            {
+                nom = r.getString("Nom");  
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+        return nom;
+    }
 }

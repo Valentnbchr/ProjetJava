@@ -147,4 +147,33 @@ public class SeanceDAO {
         return id_salle;
     }
     
+    public int getprofID(int id_seance)
+    {
+        Connection con = null;
+        Statement st;
+        int id_prof = 0;
+        
+        String rqt1 = "SELECT * FROM Seance_Enseignant WHERE ID_Seance = '"+id_seance+"' ";
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            System.out.println("Connected !");
+            st = con.createStatement();
+            
+            ResultSet r = st.executeQuery(rqt1);
+            while(r.next())
+            {
+                id_prof = r.getInt("ID_Enseignant");
+            }
+
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+        return id_prof;
+    }
+    
 }

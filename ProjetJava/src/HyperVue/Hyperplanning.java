@@ -2,6 +2,7 @@ package HyperVue;
 
 import HyperDAO.AdministrateurDAO;
 import HyperDAO.ConnexionDAO;
+import HyperDAO.EtudiantDAO;
 import HyperDAO.GroupeDAO;
 import HyperDAO.SalleDAO;
 import java.util.logging.Level;
@@ -94,12 +95,14 @@ public class Hyperplanning extends JFrame {
         ConnexionDAO co = new ConnexionDAO();
         String email = id.getText();
         String MDP = mdp.getText();
+        int droit = 0;
                 
-        
         co.connexion(email, MDP);
+        
         if(co.connexion(email, MDP) == true)
         {
-            int droit = co.verifUtilisateur(email, MDP);
+            
+            droit = co.verifUtilisateur(email, MDP);
             
             if(droit == 1 || droit == 2)
             {
@@ -107,21 +110,12 @@ public class Hyperplanning extends JFrame {
             }
             if(droit == 3)
             {
-                try {
-                //Lorsque nous cliquons sur notre bouton, on passe a l'autre fenétre
-                EDTV edt = new EDTV();
-                } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(Hyperplanning.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    EDTV edt = new EDTV(email, MDP);
+                
             }
             if(droit == 4)
             {
-                try {
-                //Lorsque nous cliquons sur notre bouton, on passe a l'autre fenétre
-                EDTV edt = new EDTV();
-                } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(Hyperplanning.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    EDTV edt = new EDTV(email, MDP);
             }
       
     }
@@ -134,11 +128,8 @@ public class Hyperplanning extends JFrame {
   public static void main(String[] args) 
   {
       Hyperplanning fen= new Hyperplanning();
-      
- 
 
-  
-   }
+  }
 
 }
   
