@@ -1,4 +1,6 @@
 package HyperVue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import HyperDAO.AdministrateurDAO;
 import javax.swing.JButton;
@@ -19,85 +21,122 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 //Les imports habituels
  
+ 
 public class suppseance extends JFrame {
   private JPanel container = new JPanel();
-  //eleve
-  private JTextField semaine = new JTextField();
+    //eleve
+  private JTextField eleve = new JTextField(15);
   //classe
-  private JTextField date = new JTextField();
-  
+  private JTextField classe = new JTextField(15);
   //prof
-  private JTextField professeur = new JTextField();
-  
-
-  
+  private JTextField professeur = new JTextField(15);
+   
   //semaine
-  private final JLabel label = new JLabel("Semaine :");
+  private final JLabel label = new JLabel("date");
   //creneau
-  private final JLabel label1 = new JLabel("Date :");
+  private final JLabel label1 = new JLabel("creneau");
   //boutton
   private JButton annuler = new JButton ("Annuler");
   //date
-   private final JLabel label2 = new JLabel("Creneau :");
+   private final JLabel label2 = new JLabel("semaine");
    //heure début
-   private JLabel label3 = new JLabel("Nom Professeur :");
+   private JLabel label3 = new JLabel("professeur");
    //creneau
    private JComboBox creneau = new JComboBox();
 
   public suppseance(){
-    this.setTitle("Animation");
-    this.setSize(350, 800);
+    this.setTitle("Supprimer Séance");
+    this.setSize(900, 600);
+    this.setLocationRelativeTo(null);   
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLocationRelativeTo(null);
     container.setBackground(Color.white);
     container.setLayout(new BorderLayout());
-    JPanel top = new JPanel();        
-    Font police = new Font("Arial", Font.BOLD, 14);
-    semaine.setFont(police);
-    semaine.setPreferredSize(new Dimension(250, 30));
-    semaine.setForeground(Color.BLUE);
-    date.setPreferredSize(new Dimension(290, 30));
-        creneau.setPreferredSize(new Dimension(270, 20));
-    //etat
-    creneau.addItem("8h30/10h");
-    creneau.addItem("10h/11h30");
-    creneau.addItem("11h30/13h"); 
-    creneau.addItem("13h/14h30");
-    creneau.addItem("14h30/16h"); 
-    creneau.addItem("16h/17h30"); 
-    creneau.addItem("17h30/19h");
     
-    professeur.setPreferredSize(new Dimension(290, 30));
+    JPanel top = new JPanel();  
+        //ajout d'un gridbagLayout
+    top.setLayout(new GridBagLayout());
+    
+    //ajout d'un gridBagConstraints
+    GridBagConstraints gc = new GridBagConstraints();
+    
+    
+    creneau.setPreferredSize(new Dimension(270, 20));
+        
+    //etat
+    creneau.addItem("8h30/10h00");
+    creneau.addItem("10h00/11h30");
+    creneau.addItem("11h30/13h00"); 
+    creneau.addItem("14h30/16h00");
+    creneau.addItem("16h00/17h30"); 
+    creneau.addItem("17h30/19h00"); 
 
     //boutton
     annuler.addActionListener(new BoutonListener());
     
+    gc.weightx=0.5;
+    gc.weighty=0.5;
+    
+    gc.anchor=GridBagConstraints.LINE_END;
     //semaine
-    top.add(label);
-    top.add(semaine);
+    gc.gridx = 1;
+    gc.gridy= 0;
+    top.add(label, gc);
     //date
-    top.add(label1);
-    top.add(date); 
+    gc.gridx = 1;
+    gc.gridy= 1;
+    top.add(label2,gc); 
     ///creneau
-    top.add(label2);
-    top.add(creneau);
+    gc.gridx = 1;
+    gc.gridy= 2;
+    top.add(label1,gc);
     //professeur
-    top.add(label3);
-    top.add(professeur);
+    gc.gridx = 1;
+    gc.gridy= 3;
+    top.add(label3,gc);
+    
+    
+    gc.anchor=GridBagConstraints.LINE_START;
+    //semaine
+    gc.gridx = 2;
+    gc.gridy= 0;
+    top.add(eleve, gc);
+    //date
+    gc.gridx = 2;
+    gc.gridy= 1;
+    top.add(classe,gc); 
+    ///creneau
+    gc.gridx = 2;
+    gc.gridy= 2;
+    top.add(creneau,gc);
+    //professeur
+    gc.gridx = 2;
+    gc.gridy= 3;
+    top.add(professeur,gc);
+    
+    
     //boutton
-    top.add(annuler);
+    gc.weighty=1;
+    
+    gc.anchor=GridBagConstraints.FIRST_LINE_START;
+    gc.gridx = 2;
+    gc.gridy=4;
+    top.add(annuler,gc);
     
     container.add(top, BorderLayout.NORTH);
     this.setContentPane(container);
+     //Définition de sa couleur de fond
+    top.setBackground(Color.ORANGE);        
+    //On prévient notre JFrame que notre JPanel sera son content pane
     this.setContentPane(top);
-    this.setVisible(true);            
+    this.setVisible(true);        
   }       
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         
       AdministrateurDAO a = new AdministrateurDAO();
-      a.etatseance(Integer.parseInt(semaine.getText()), date.getText(), creneau.getSelectedItem().toString(), professeur.getText(), "Annulé");
+      a.etatseance(Integer.parseInt(eleve.getText()), classe.getText(), creneau.getSelectedItem().toString(), professeur.getText(), "Annulé");
       
     }
   }
