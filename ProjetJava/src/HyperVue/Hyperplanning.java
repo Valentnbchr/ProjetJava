@@ -22,6 +22,7 @@ import javax.swing.JTextField;
  
 public class Hyperplanning extends JFrame {
     //Instanciation d'un objet JPanel
+    
     JPanel pan = new JPanel();
     
     JLabel name = new JLabel("IDENTIFIANT");
@@ -31,7 +32,9 @@ public class Hyperplanning extends JFrame {
     JTextField mdp = new JTextField(15);
     
     JButton btn = new JButton ("Se connecter");
-  public Hyperplanning(){             
+    
+  public Hyperplanning(){
+      
     this.setTitle("CONNEXION");
     this.setSize(900, 600);
     this.setLocationRelativeTo(null);               
@@ -78,8 +81,10 @@ public class Hyperplanning extends JFrame {
     //Définition de sa couleur de fond
     pan.setBackground(Color.ORANGE);        
     //On prévient notre JFrame que notre JPanel sera son content pane
+    
     this.setContentPane(pan);
     this.setVisible(true);
+    
     
   }
   
@@ -120,6 +125,7 @@ public class Hyperplanning extends JFrame {
             }
       
     }
+
   }
   
 }
@@ -127,9 +133,12 @@ public class Hyperplanning extends JFrame {
   
   public static void main(String[] args) 
   {
+      Hyperplanning fen= new Hyperplanning();
       
-    Hyperplanning fen= new Hyperplanning();
+ 
+
   
-  }
+   }
+
 }
   

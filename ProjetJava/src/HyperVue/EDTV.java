@@ -31,27 +31,29 @@ public class EDTV extends JFrame {
     /* Construction de l'interface graphique */
     public EDTV() throws UnsupportedLookAndFeelException 
     {
+        
         this.setTitle("Emploi du Temps");
         this.setSize(600,400);
         this.setLocationRelativeTo( null );
         this.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
         // Construction et injection de la barre de menu
-        this.setJMenuBar( this.createMenuBar() );
         
         UIManager.setLookAndFeel( new NimbusLookAndFeel() );
+        
+        this.setJMenuBar( this.createMenuBar() );
         JTable maTable = new JTable();
         this.JTable();
         this.setVisible(true);
+        
     }
     
     /* Methode de construction de la barre de menu */
     private JMenuBar createMenuBar() 
     {
-
+        
         JPanel top = new JPanel();   
       
         JMenuBar menuBar = new JMenuBar();
-
       
         JMenu menuCours = new JMenu( "Cours" );
         
@@ -158,6 +160,7 @@ public class EDTV extends JFrame {
         JMenu mnuHelp = new JMenu( "Help" );
       
         menuBar.add( mnuHelp );
+
         return menuBar;
         
     }
@@ -180,7 +183,7 @@ public class EDTV extends JFrame {
         };
  
         String[] entetes = {"Heure", "Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"};
- 
+ System.out.println("coucou");
         JTable tableau = new JTable(donnees, entetes);
  
         getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
