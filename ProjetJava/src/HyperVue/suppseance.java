@@ -32,15 +32,15 @@ public class suppseance extends JFrame {
   private JTextField professeur = new JTextField(15);
    
   //semaine
-  private final JLabel label = new JLabel("date");
+  private final JLabel label = new JLabel("Semaine");
   //creneau
-  private final JLabel label1 = new JLabel("creneau");
+  private final JLabel label1 = new JLabel("Creneau");
   //boutton
   private JButton annuler = new JButton ("Annuler");
   //date
-   private final JLabel label2 = new JLabel("semaine");
+   private final JLabel label2 = new JLabel("Jour de la semaine");
    //heure début
-   private JLabel label3 = new JLabel("professeur");
+   private JLabel label3 = new JLabel("Nom Professeur");
    //creneau
    private JComboBox creneau = new JComboBox();
 
@@ -64,12 +64,12 @@ public class suppseance extends JFrame {
     creneau.setPreferredSize(new Dimension(270, 20));
         
     //etat
-    creneau.addItem("8h30/10h00");
-    creneau.addItem("10h00/11h30");
-    creneau.addItem("11h30/13h00"); 
-    creneau.addItem("14h30/16h00");
-    creneau.addItem("16h00/17h30"); 
-    creneau.addItem("17h30/19h00"); 
+    creneau.addItem("8h30/10h");
+    creneau.addItem("10h/11h30");
+    creneau.addItem("11h30/13h"); 
+    creneau.addItem("14h30/16h");
+    creneau.addItem("16h/17h30"); 
+    creneau.addItem("17h30/19h"); 
 
     //boutton
     annuler.addActionListener(new BoutonListener());

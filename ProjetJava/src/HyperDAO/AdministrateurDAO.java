@@ -27,12 +27,47 @@ public class AdministrateurDAO {
     {
     }
     
-    public void ajoutseance(int semaine, String date, String creneau, int etat, int id_cours, int id_type, int id_enseignant, int id_groupe, int id_salle)
+    public void ajoutseance(int semaine, String date, String creneau, String etat, String cours, String type, String prof, String groupe, String salle)
     {
         Connection con = null;
         Statement st, st2, st3, st4;
+        int id_etat = 0;
+        int id_cours = 0;
+        int id_type = 0;
+        int id_prof = 0;
+        int id_groupe = 0;
+        int id_salle = 0;
         
-        String rqt = "INSERT INTO Seance (Semaine, Date, Creneau, Etat, ID_Cours, ID_Type)VALUES ('"+semaine+"','"+date+"','"+creneau+"', '"+etat+"', '"+id_cours+"','"+id_type+"') ";
+        if("En cours de validation".equals(etat))
+        {
+            id_etat = 1;
+        }
+        if("Validé".equals(etat))
+        {
+            id_etat = 2;
+        }
+        if("Annulé".equals(etat))
+        {
+            id_etat = 3;
+        }
+        
+        CoursDAO c = new CoursDAO();
+        id_cours = c.getID(cours);
+        
+        TypeDAO t = new TypeDAO();
+        id_type = t.getID(type);
+        
+        EnseignantDAO ens = new EnseignantDAO();
+        id_prof = ens.getID(prof);
+        
+        GroupeDAO g = new GroupeDAO();
+        id_groupe = g.getID(groupe);
+        
+        SalleDAO s = new SalleDAO();
+        id_salle = s.getID(salle);
+        
+        
+        String rqt = "INSERT INTO Seance (Semaine, Date, Creneau, Etat, ID_Cours, ID_Type)VALUES ('"+semaine+"','"+date+"','"+creneau+"', '"+id_etat+"', '"+id_cours+"','"+id_type+"') ";
         
         try
         {
@@ -40,9 +75,7 @@ public class AdministrateurDAO {
             System.out.println("Connected !");
             
             int id_seance = 0;
-            GroupeDAO g = new GroupeDAO();
             int x = g.tailleGroupe(id_groupe);
-            SalleDAO s = new SalleDAO();
             int y = s.getCapacité(id_salle);
             
            
@@ -56,13 +89,13 @@ public class AdministrateurDAO {
                 st.executeUpdate(rqt);
                 
                 st2 = con.createStatement();
-                ResultSet r = st2.executeQuery("SELECT * FROM Seance WHERE Semaine = '"+semaine+"' AND Date = '"+date+"' AND Creneau = '"+creneau+"' AND Etat = '"+etat+"' AND ID_Cours = '"+id_cours+"' AND ID_Type = '"+id_type+"' ");
+                ResultSet r = st2.executeQuery("SELECT * FROM Seance WHERE Semaine = '"+semaine+"' AND Date = '"+date+"' AND Creneau = '"+creneau+"' AND Etat = '"+id_etat+"' AND ID_Cours = '"+id_cours+"' AND ID_Type = '"+id_type+"' ");
                 while(r.next())
                 {
                     id_seance = r.getInt("ID");  
                 }
                 
-                String rqt2 = "INSERT INTO Seance_Enseignant (ID_Seance, ID_Enseignant)VALUES ('"+id_seance+"','"+id_enseignant+"') ";
+                String rqt2 = "INSERT INTO Seance_Enseignant (ID_Seance, ID_Enseignant)VALUES ('"+id_seance+"','"+id_prof+"') ";
                 String rqt3 = "INSERT INTO Seance_Groupes (ID_Seance, ID_Groupe)VALUES ('"+id_seance+"','"+id_groupe+"') ";
                 String rqt4 = "INSERT INTO Seance_Salles (ID_Seance, ID_Salle)VALUES ('"+id_seance+"','"+id_salle+"') ";
 

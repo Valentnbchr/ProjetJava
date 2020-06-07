@@ -39,19 +39,19 @@ public class AjoutSeanceV extends JFrame {
     private JLabel label1 = new JLabel("etat");
   
     //id cours
-    private JTextField cours = new JTextField(15);
+    private JComboBox cours = new JComboBox();
 
      //id type
-    private JTextField type = new JTextField(15);
+    private JComboBox type = new JComboBox();
 
      //id ens
     private JTextField ens = new JTextField(15);
 
      //id grp
-    private JTextField grp = new JTextField(15);
+    private JComboBox grp = new JComboBox();
 
      //id salle
-    private JTextField salle = new JTextField(15);
+    private JComboBox salle = new JComboBox();
   
     //semaine
     private final JLabel label = new JLabel("semaine");
@@ -82,7 +82,7 @@ public class AjoutSeanceV extends JFrame {
 
   public AjoutSeanceV()
   {
-    this.setTitle("Animation");
+    this.setTitle("Ajout Seance");
     this.setSize(900, 600);
     this.setLocationRelativeTo(null);   
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,6 +99,7 @@ public class AjoutSeanceV extends JFrame {
     
     //creneau
     creneau.setPreferredSize(new Dimension(290, 30));
+    creneau.addItem(" ");
     creneau.addItem("8h30/10h");
     creneau.addItem("10h/11h30");
     creneau.addItem("11h30/13h");
@@ -109,9 +110,42 @@ public class AjoutSeanceV extends JFrame {
     
     //etat
     etat.setPreferredSize(new Dimension(270, 20));
-    etat.addItem("1");
-    etat.addItem("2");
-    etat.addItem("3"); 
+    etat.addItem(" ");
+    etat.addItem("En cours de validation");
+    etat.addItem("Validé");
+    etat.addItem("Annulé"); 
+    
+    cours.setPreferredSize(new Dimension(290, 30));
+    cours.addItem(" ");
+    cours.addItem("Mathématiques");
+    cours.addItem("Thermodynamique");
+    cours.addItem("Anglais");
+
+    
+    type.setPreferredSize(new Dimension(290, 30));
+    type.addItem(" ");
+    type.addItem("TP");
+    type.addItem("Amphi");
+    type.addItem("TD");
+
+    
+    grp.setPreferredSize(new Dimension(290, 30));
+    grp.addItem(" ");
+    grp.addItem("TD1");
+    grp.addItem("TD2");
+    grp.addItem("TD3");
+    grp.addItem("TD4");
+    grp.addItem("TD5");
+    grp.addItem("TD6");
+
+    salle.setPreferredSize(new Dimension(290, 30));
+    salle.addItem(" ");
+    salle.addItem("P315");
+    salle.addItem("P445");
+    salle.addItem("SC217");
+    salle.addItem("EM409");
+    salle.addItem("G004");
+    salle.addItem("G019");
     
     //boutton
     b.addActionListener(new BoutonListener());
@@ -228,7 +262,7 @@ public class AjoutSeanceV extends JFrame {
 
   class BoutonListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
-      a.ajoutseance(Integer.parseInt(jtf.getText()), jtf2.getText(),creneau.getSelectedItem().toString(), etat.getSelectedIndex()+1 , Integer.parseInt(cours.getText()), Integer.parseInt(type.getText()), Integer.parseInt(ens.getText()), Integer.parseInt(grp.getText()), Integer.parseInt(salle.getText()));
+      a.ajoutseance(Integer.parseInt(jtf.getText()), jtf2.getText(),creneau.getSelectedItem().toString(), etat.getSelectedItem().toString() , cours.getSelectedItem().toString(), type.getSelectedItem().toString(), ens.getText(), grp.getSelectedItem().toString(), salle.getSelectedItem().toString());
     }
   }
 }

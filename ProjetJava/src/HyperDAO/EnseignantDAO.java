@@ -78,5 +78,32 @@ public class EnseignantDAO {
         return nom;
     }
     
+    public int getprofID(String email)
+    {
+        Connection con = null;
+        Statement st;
+        int id = 0;
+        
+        try
+        {
+            con = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            
+                
+            st = con.createStatement();
+            ResultSet r = st.executeQuery("SELECT * FROM Utilisateur WHERE Email = '"+email+"'");
+            while(r.next())
+            {
+                id = r.getInt("ID");  
+            }
+            
+        }
+        catch(SQLException e)
+        {
+            System.err.println(e);
+        }
+        
+        return id;
+    }
+    
     
 }

@@ -110,7 +110,7 @@ public class Hyperplanning extends JFrame {
             }
             if(droit == 3)
             {
-                    EDTV edt = new EDTV(email, MDP);
+                    EDTPV edt = new EDTPV(email, MDP);
                 
             }
             if(droit == 4)

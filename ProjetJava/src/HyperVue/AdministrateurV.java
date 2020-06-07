@@ -65,9 +65,9 @@ public class AdministrateurV extends JFrame {
 
     //boutton
     b.addActionListener(new BoutonListener());
-    b1.addActionListener(new BoutonListener());
-    b2.addActionListener(new BoutonListener());
-    b3.addActionListener(new BoutonListener()); 
+    b1.addActionListener(new BoutonListener1());
+    b2.addActionListener(new BoutonListener2());
+    b3.addActionListener(new BoutonListener3()); 
     
     gc.weightx=0.5;
     gc.weighty=0.5;

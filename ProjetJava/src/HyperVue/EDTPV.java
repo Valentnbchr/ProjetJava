@@ -4,6 +4,7 @@ package HyperVue;
 import HyperDAO.CoursDAO;
 import HyperDAO.EnseignantDAO;
 import HyperDAO.EtudiantDAO;
+import HyperDAO.GroupeDAO;
 import HyperDAO.SalleDAO;
 import HyperDAO.SeanceDAO;
 import HyperDAO.TypeDAO;
@@ -32,7 +33,7 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 
 
-public class EDTV extends JFrame {
+public class EDTPV extends JFrame {
     private static final String USERNAME="root";
     private static final String PASSWORD="root";
     private static final String CONN_STRING="jdbc:mysql://localhost:3306/Hyperplanning?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -42,7 +43,7 @@ public class EDTV extends JFrame {
     private JComboBox combo = new JComboBox();
     
     /* Construction de l'interface graphique */
-    public EDTV(String email, String mdp)
+    public EDTPV(String email, String mdp)
     {
         
         this.setTitle("Emploi du Temps");
@@ -187,6 +188,7 @@ public class EDTV extends JFrame {
         String c1 = "", c2 = "",c3 = "", c4 = "",c5 = "", c6 = "",c7 = "", c8 = "",c9 = "", c10 = "",c11 = "", c12 = "",c13 = "", c14 = "",c15 = "", c16 = "",c17 = "", c18 = "",c19 = "", c20 = "",c21 = "", c22 = "",c23 = "", c24 = "",c25 = "", c26 = "",c27 = "", c28 = "",c29 = "", c30 = "",c31 = "", c32 = "",c33 = "", c34 = "",c35 = "";
         int id_eleve = 0;
         int id_groupe = 0;
+        String nomgroupe = "";
         int id_seance = 0;
         int id_cours = 0;
         String nomcours = "";
@@ -199,10 +201,9 @@ public class EDTV extends JFrame {
         int etat = 0;
         String nometat = "";
         
-        EtudiantDAO etu = new EtudiantDAO();
-        id_eleve = etu.getID(email);
-        id_groupe = etu.getIDgroupe(id_eleve);
-        
+        EnseignantDAO ens = new EnseignantDAO();
+        id_prof = ens.getprofID(email);
+        System.out.println(id_prof);
         
         try
         {
@@ -210,7 +211,7 @@ public class EDTV extends JFrame {
             
                 
             st = con.createStatement();
-            ResultSet r = st.executeQuery("SELECT * FROM Seance_Groupes WHERE ID_Groupe = '"+id_groupe+"'");
+            ResultSet r = st.executeQuery("SELECT * FROM Seance_Enseignant WHERE ID_Enseignant = '"+id_prof+"'");
             while(r.next())
             {
                 id_seance = r.getInt("ID_Seance");  
@@ -227,11 +228,10 @@ public class EDTV extends JFrame {
                     TypeDAO t = new TypeDAO();
                     typecours = t.getNom(id_type);
                     
-                    SeanceDAO se = new SeanceDAO();
-                    id_prof = se.getprofID(id_seance);
-                    EnseignantDAO ens = new EnseignantDAO();
-                    nomprof = ens.getNom(id_prof);
+                    GroupeDAO g = new GroupeDAO();
+                    nomgroupe = g.getNom(id_seance);
                     
+                    SeanceDAO se = new SeanceDAO();
                     id_salle = se.getsalleID(id_seance);
                     SalleDAO sa = new SalleDAO();
                     nomsalle = sa.getNom(id_salle);
@@ -255,153 +255,153 @@ public class EDTV extends JFrame {
                     String creneau = r2.getString("Creneau");
                     System.out.println(date);
                     System.out.println(creneau);
-                    String cours = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                    String cours = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     System.out.println(cours);
                     
                     
                     if("Lundi".equals(date) && "8h30/10h".equals(creneau))
                     {
-                        c1 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c1 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                         System.out.println(c1);
                     }
                     if("Mardi".equals(date) &&  "8h30/10h".equals(creneau))
                     {
-                        c2 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c2 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                         System.out.println(c2);
                     }
                     if("Mercredi".equals(date) &&  "8h30/10h".equals(creneau))
                     {
-                        c3 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c3 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Jeudi".equals(date) &&  "8h30/10h".equals(creneau))
                     {
-                        c4 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c4 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "8h30/10h".equals(creneau))
                     {
-                        c5 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c5 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Lundi".equals(date) &&  "10h/11h30".equals(creneau))
                     {
-                        c6 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c6 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mardi".equals(date) &&  "10h/11h30".equals(creneau))
                     {
-                        c7 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c7 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mercredi".equals(date) &&  "10h/11h30".equals(creneau))
                     {
-                        c8 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c8 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Jeudi".equals(date) &&  "10h/11h30".equals(creneau))
                     {
-                        c9 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c9 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "10h/11h30".equals(creneau))
                     {
-                        c10 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c10 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Lundi".equals(date) &&  "11h30/13h".equals(creneau))
                     {
-                        c11 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c11 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mardi".equals(date) &&  "11h30/13h".equals(creneau))
                     {
-                        c12 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c12 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mercredi".equals(date) &&  "11h30/13h".equals(creneau))
                     {
-                        c13 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c13 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Jeudi".equals(date) &&  "11h30/13h".equals(creneau))
                     {
-                        c14 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c14 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "11h30/13h".equals(creneau))
                     {
-                        c15 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c15 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Lundi".equals(date) &&  "13h/14h30".equals(creneau))
                     {
-                        c16 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c16 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mardi".equals(date) &&  "13h/14h30".equals(creneau))
                     {
-                        c17 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c17 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mercredi".equals(date) &&  "13h/14h30".equals(creneau))
                     {
-                        c18 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c18 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Jeudi".equals(date) &&  "13h/14h30".equals(creneau))
                     {
-                        c19 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c19 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "13h/14h30".equals(creneau))
                     {
-                        c20 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c20 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Lundi".equals(date) &&  "14h30h/16h".equals(creneau))
                     {
-                        c21 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c21 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mardi".equals(date) &&  "14h30/16h".equals(creneau))
                     {
-                        c22 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c22 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                         System.out.println(c22);
                     }
                     if( "Mercredi".equals(date) &&  "14h30h/16h".equals(creneau))
                     {
-                        c23 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c23 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Jeudi".equals(date) &&  "14h30h/16h".equals(creneau))
                     {
-                        c24 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c24 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "14h30h/16h".equals(creneau))
                     {
-                        c25 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c25 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Lundi".equals(date) &&  "16h/17h30".equals(creneau))
                     {
-                        c26 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c26 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mardi".equals(date) &&  "16h/17h30".equals(creneau))
                     {
-                        c27 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c27 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mercredi".equals(date) &&  "16h/17h30".equals(creneau))
                     {
-                        c28 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c28 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                         System.out.println(c28);
                     }
                     if( "Jeudi".equals(date) &&  "16h/17h30".equals(creneau))
                     {
-                        c29 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c29 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "16h/17h30".equals(creneau))
                     {
-                        c30 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c30 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Lundi".equals(date) &&  "17h30/19h".equals(creneau))
                     {
-                        c31 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c31 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mardi".equals(date) &&  "17h30/19h".equals(creneau))
                     {
-                        c32 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c32 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Mercredi".equals(date) &&  "17h30/19h".equals(creneau))
                     {
-                        c33 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c33 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Jeudi".equals(date) &&  "17h30/19h".equals(creneau))
                     {
-                        c34 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c34 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     if( "Vendredi".equals(date) &&  "17h30/19h".equals(creneau))
                     {
-                        c35 = nomcours+","+nomprof+","+typecours+","+nomsalle+","+nometat;
+                        c35 = nomcours+","+nomgroupe+","+typecours+","+nomsalle+","+nometat;
                     }
                     
                     
